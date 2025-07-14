@@ -1,0 +1,8 @@
+{
+  "type": "workflow",
+  "version": 1,
+  "data": {
+    "title": "Client Onboarding Assistant",
+    "content": "@OnboardingTeam create a project folder for 'New Client Inc', draft a welcome email with project details from #response1, and send it to 'client@example.com'. Finally, create a task in our project manager to schedule a kickoff call for next Monday."
+  }
+}
