@@ -1,1 +1,20 @@
-
+[
+  {
+    "id": "workflow_client_onboarding_v1",
+    "name": "Client Onboarding Assistant",
+    "author": "AjayJi Team",
+    "description": "A complete 5-step workflow to onboard a new client, from creating a project folder to sending a welcome email.",
+    "type": "workflow",
+    "tags": ["client", "onboarding", "productivity"],
+    "ajayji_file_url": "https://raw.githubusercontent.com/YOUR_USERNAME/AjayJi-Marketplace/main/files/client-onboarding-workflow.ajayji"
+  },
+  {
+    "id": "agent_social_media_writer_v1",
+    "name": "Social Media Post Writer",
+    "author": "AjayJi Team",
+    "description": "A specialized agent trained to write engaging and concise posts for Twitter and LinkedIn.",
+    "type": "agent_group",
+    "tags": ["social media", "content", "writing"],
+    "ajayji_file_url": "https://raw.githubusercontent.com/YOUR_USERNAME/AjayJi-Marketplace/main/files/social-media-agent.ajayji"
+  }
+]
