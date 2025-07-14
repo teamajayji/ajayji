@@ -1,0 +1,18 @@
+{
+  "type": "agent_group",
+  "version": 1,
+  "data": {
+    "name": "Social Media Mavens",
+    "description": "A specialized team to brainstorm, write, and find images for social media posts.",
+    "configType": "supervisoryAgentGroup",
+    "llmProvider": "OpenAI",
+    "llmModelName": "gpt-4o-mini",
+    "llmApiKeySecureStorageKey": "social_media_openai_key",
+    "groupSupervisorPrompt": "You are a social media manager. Your goal is to create a complete social media post. First, brainstorm ideas based on the user's topic. Then, write a draft post. Finally, find a suitable stock image for the post. Present the final post and image suggestion clearly.",
+    "memberConfigNames": [
+      "BrainstormerAgent",
+      "CopywriterAgent",
+      "ImageSearchAgent"
+    ]
+  }
+}
