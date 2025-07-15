@@ -1,0 +1,52 @@
+# .github/workflows/vetting.yml
+
+name: 'Marketplace PR Vetting'
+
+# This action will trigger on every pull request that is opened or updated.
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  validate-submission:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out the code from the Pull Request
+      - name: Checkout PR Code
+        uses: actions/checkout@v3
+
+      # Step 2: Validate the main marketplace.json file
+      # This ensures the entire file isn't broken by a bad merge.
+      - name: 'Validate marketplace.json structure'
+        run: |
+          if ! command -v jq &> /dev/null
+          then
+              sudo apt-get update && sudo apt-get install -y jq
+          fi
+          jq empty marketplace.json
+          echo "✅ marketplace.json is a valid JSON file."
+
+      # Step 3: Find the new .ajayji file in the PR and validate it
+      # This is the most important check for a new submission.
+      - name: 'Validate new .ajayji file'
+        run: |
+          # Find the first file in the 'files/' directory that was added in this PR.
+          # This assumes a user submits one item at a time.
+          NEW_FILE=$(git diff --name-only --diff-filter=A origin/main...HEAD -- 'files/*.ajayji' | head -n 1)
+
+          if [ -z "$NEW_FILE" ]; then
+            echo "⚠️ No new .ajayji file found in this PR. Skipping validation."
+            exit 0
+          fi
+          
+          echo "🔎 Validating new file: $NEW_FILE"
+          jq empty "$NEW_FILE"
+          echo "✅ $NEW_FILE is a valid JSON file."
+
+          # Check for a required 'type' field in the new file.
+          TYPE_FIELD=$(jq -r '.type' "$NEW_FILE")
+          if [ -z "$TYPE_FIELD" ] || [ "$TYPE_FIELD" == "null" ]; then
+            echo "❌ ERROR: The new .ajayji file is missing the required 'type' field."
+            exit 1
+          fi
+          echo "✅ Found required 'type' field: $TYPE_FIELD"
